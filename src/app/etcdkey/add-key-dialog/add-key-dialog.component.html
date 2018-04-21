@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>添加新的键值</h2>
+<mat-dialog-content>
+  <form #form="ngForm">
+    <mat-form-field>
+      <input [(ngModel)]="key" name="key" matInput placeholder="键" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="value" name="value" matInput placeholder="值" required>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>取消</button>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="[key, value]">确认</button>
+</mat-dialog-actions>

@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-start border-bottom align-items-center">
+    <!-- 拷贝按钮提示模板 由不同事件传入不同的信息-->
+    <ng-template #copyTooltipContent let-c="content">{{c?c:"拷贝"}}</ng-template>
+
+    <!-- 按钮控制 -->
+    <div class="p-2">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <!-- 编辑 -->
+            <button mat-menu-item (click)="isEditable=true">
+                <mat-icon >edit</mat-icon>
+                编辑
+            </button>
+            <!-- 拷贝 -->
+            <button mat-menu-item ngxClipboard [cbContent]="node.value" (cbOnSuccess)="snackBar.open('拷贝成功', '', {duration: 1000})">
+                <mat-icon >content_copy</mat-icon>
+                拷贝
+            </button>
+            <!-- 删除 -->
+            <button mat-menu-item (click)="deleteKey()">
+                <mat-icon>delete</mat-icon>
+                删除
+            </button>
+        </mat-menu>
+    </div>
+
+    <!-- 键值显示 -->
+    <div class="p-2">
+        {{node.key|keyname}}
+    </div>
+    <div class="p-2 ml-auto border-success border-bottom" (click)="edit()" [class.d-none]="isEditable">
+        {{node.value}}
+    </div>
+    <!-- 编辑框 按需显示-->
+    <div class="p-2 ml-auto" [class.d-none]="!isEditable">
+        <form>
+            <mat-form-field>
+                <input [(ngModel)]="node.value" matInput name="value">
+            </mat-form-field>
+            <button (click)="setKey()" mat-icon-button>
+                <mat-icon>done</mat-icon>
+            </button>
+            <button (click)="cancel()" mat-icon-button>
+                <mat-icon>clear</mat-icon>
+            </button>
+        </form>
+    </div>
+</div>
+<!-- 动态加载的输入框,和上面的td互斥 -->
+<!-- <ng-template appDynamicInput></ng-template> -->
+<!-- TODO: Action 按钮组 -->

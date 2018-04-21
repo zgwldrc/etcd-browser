@@ -1,0 +1,73 @@
+<ng-container *ngIf="node">
+  <!-- <div class="dir-item">
+    <a [style.padding-left.em]="(depth+1)*0.6" [ngClass]="aClasses" on-click="toggle()">
+      <i class="material-icons">{{statusIconFont}}</i>
+      {{node.key|keyname}} -->
+      <!-- 新增目录 -->
+      <!-- <i class="material-icons my-icon" (click)="openAddDirFormModal()" alt="" ngbTooltip="添加dir">
+        add
+      </i> -->
+    
+      <!-- 删除目录 -->
+      <!-- <i class="material-icons" (click)="openDeleteDirModal(deleteConfirmModalTemplate)" *ngIf="node.key!='/'" alt="" ngbTooltip="删除">delete</i> -->
+    
+      <!-- 拷贝目录 -->
+      <!-- <i class="material-icons" (click)="copyDir(node.key)" *ngIf="node.key!='/'" alt="" ngbTooltip="拷贝">
+        content_copy
+      </i> -->
+      <!-- 刷新目录 -->
+      <!-- <i class="material-icons" (click)="loadNodes()" alt="" ngbTooltip="刷新">
+        refresh
+      </i> -->
+    <!-- </a> -->
+  <!-- </div> -->
+  <mat-list-item [style.padding-left.em]="(depth)*0.6"
+    (mouseenter)="menuTrigger.hidden=null"
+    (mouseleave)="menuTrigger.hidden='true'"
+    on-click="toggle()" 
+    >
+    <mat-divider *ngIf="isActivated"></mat-divider>
+    
+    <!-- 目录icon -->
+    <mat-icon mat-list-icon>{{isOpen?'folder_open':'folder'}}</mat-icon>
+    <a matLine>{{node.key|keyname}}</a>
+    <!-- 小菜单触发器 -->
+    <div #menuTrigger hidden>
+      <button mat-icon-button on-click="openMenuAndStopPropagation($event)" [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    </div>
+    
+    <!-- 小菜单静态模板 -->
+    <mat-menu #menu="matMenu">
+      <div mat-menu-item on-click="openNewDirDialog()">
+        <mat-icon>create_new_folder</mat-icon>
+        <span>新建目录</span>
+      </div>
+      <!-- 非root节点才能拥有的操作 -->
+      <ng-container *ngIf="node.key!='/'">
+        <div mat-menu-item (click)="copyDir()">
+          <mat-icon>content_copy</mat-icon>
+          <span>拷贝目录</span>
+        </div>
+        <div mat-menu-item on-click="openDeleteDirDialog()">
+          <mat-icon>delete</mat-icon>
+          <span>删除目录</span>
+        </div>
+      </ng-container>
+
+      <div mat-menu-item on-click="refreshNodes()">
+          <mat-icon>refresh</mat-icon>
+          <span>刷新</span>
+      </div>
+    </mat-menu>  
+  </mat-list-item>    
+
+  <ng-container *ngIf="node.nodes">
+    <ng-container *ngIf="isOpen">
+      <ng-container *ngFor="let n of (node.nodes|dirkey)">
+        <app-etcddir [node]="n" [parentNode]="node" [depth]="depth+1"></app-etcddir>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</ng-container>

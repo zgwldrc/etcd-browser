@@ -1,0 +1,14 @@
+<ng-container *ngIf="node">
+  <div class="d-flex p-2 px-5" style="position: sticky; top: 3rem">
+    <button mat-mini-fab matTooltip="新建" matTooltipPosition="right" (click)="openAddKeyDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</ng-container>
+
+<div class="d-flex flex-column p-3" *ngIf="node && node.nodes && node.nodes.length != 0">
+  <!-- 控制指令条 -->
+
+  <!-- 循环键值对组件 -->
+  <app-key-item *ngFor="let n of node.nodes|valuekey" [node]="n" [parent]="node"></app-key-item>
+</div>

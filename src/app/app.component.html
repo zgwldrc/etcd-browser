@@ -1,0 +1,19 @@
+<header class="navbar sticky-top navbar-dark navbar-expand-lg bg-primary">
+  <mat-icon>explore</mat-icon><span class="navbar-brand">Etcd Browser</span>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    
+    <div class="sidebar p-3">
+      <mat-nav-list>
+          <h3 mat-subheader>Folders</h3>
+          <app-etcddir [node]="rootNode" [depth]="0"></app-etcddir>
+      </mat-nav-list>
+    </div>
+    
+    <div style="flex-grow:1; position: relative;">
+      <app-etcdkey></app-etcdkey>
+    </div>
+  </div>
+</div>
