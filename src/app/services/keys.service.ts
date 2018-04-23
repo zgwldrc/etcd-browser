@@ -13,7 +13,7 @@ export class KeysService {
   ) {}
 
   private endpoint = environment.etcdEndPoint
-  private url = `http://${this.endpoint}/v2/keys`
+  private url = `${location.protocol}//${this.endpoint}/v2/keys`
 
   setKey(keypath: string, value: string) {
     return this.http.put(this.url + keypath, null,{params: new HttpParams().append("value",value)})
