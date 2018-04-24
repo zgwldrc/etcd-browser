@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { Node } from '../../node'
 import { KeysService } from '../../services/keys.service';
-import { NgbModal, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteKeyDialogComponent } from '../del-key-confirm-modal/del-key-confirm-modal.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
 
@@ -16,37 +15,14 @@ export class KeyItemComponent implements OnInit {
   @Input() parent: Node
   @Input() node: Node
   isEditable: boolean = false
-  @ViewChild('tt') public tooltip: NgbTooltip;
   constructor(
     private keysService: KeysService,
-    private modalService: NgbModal,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
     
-  }
-  // 这里设置isCopyied标记告知Tooltip的mouseleave事件处理函数不要关闭tooltip
-  // 只有当isCopied为false时，才能关闭tooltip
-  isCopied = false
-  showCopyTooltip(message: string){
-    this.isCopied = true
-    this.tooltip.close()
-    this.tooltip.open({content: message})
-    setTimeout(
-      () => {
-        this.tooltip.close();
-        this.isCopied=false;
-      },
-      1000
-    )
-  }
-
-  tooltipToggle(){
-    if (!this.isCopied) {
-      this.tooltip.toggle();
-    }
   }
 
   edit(){

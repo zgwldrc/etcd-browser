@@ -4,7 +4,6 @@ import { ActivedEtcdDirService } from '../services/actived-etcd-dir.service';
 import { Node } from '../node'
 import { KeysService } from '../services/keys.service';
 import { KeyItemComponent } from './key-item/key-item.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { AddKeyDialogComponent } from './add-key-dialog/add-key-dialog.component';
 import { FlushDirService } from '../services/flush-dir.service';
@@ -18,7 +17,6 @@ export class EtcdkeyComponent implements OnInit,OnDestroy {
   constructor(
     private activatedKeyService: ActivedEtcdDirService,
     private keyService: KeysService,
-    private modalService: NgbModal,
     public dialog: MatDialog,
     private flushDirService: FlushDirService,
   ) { }

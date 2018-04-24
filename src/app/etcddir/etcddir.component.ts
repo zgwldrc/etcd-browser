@@ -5,7 +5,6 @@ import { MatSnackBar} from '@angular/material';
 import { Node} from '../node';
 import { KeysService} from '../services/keys.service';
 import { ActivedEtcdDirService } from '../services/actived-etcd-dir.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlushDirService } from '../services/flush-dir.service';
 import { Subscription } from 'rxjs';
 
@@ -21,7 +20,6 @@ export class EtcddirComponent implements OnInit {
   constructor(
     private keysService: KeysService,
     private activatedKeyService: ActivedEtcdDirService,
-    private modalService: NgbModal,
     private flushDirService:FlushDirService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar
@@ -177,20 +175,4 @@ export class EtcddirComponent implements OnInit {
       }
     )
   }
-
-  openDeleteDirModal(templateRef){
-    this.modalService.open(templateRef).result.then(
-      result => {
-        if (result == "confirm") {
-          this.keysService.deleteDir(this.node.key).subscribe(
-            resp => {
-              this.flushDirService.flush(this.parentNode.key)
-            },
-            err => console.log(err)
-          )
-        }
-      }
-    )
-  }
-
 }

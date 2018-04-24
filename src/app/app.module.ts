@@ -10,7 +10,6 @@ import { DirkeyPipe } from './dirkey.pipe';
 import { KeynamePipe } from './keyname.pipe';
 import { EtcdkeyComponent } from './etcdkey/etcdkey.component';
 import { ActivedEtcdDirService } from './services/actived-etcd-dir.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { KeyItemComponent } from './etcdkey/key-item/key-item.component';
 import { DeleteKeyDialogComponent } from './etcdkey/del-key-confirm-modal/del-key-confirm-modal.component';
 import { FlushDirService } from './services/flush-dir.service';
@@ -45,7 +44,6 @@ import { AddKeyDialogComponent } from './etcdkey/add-key-dialog/add-key-dialog.c
     AddKeyDialogComponent,
   ],
   imports: [
-    NgbModule.forRoot(),
     CustomMaterialModule,
     BrowserModule,
     HttpClientModule,
