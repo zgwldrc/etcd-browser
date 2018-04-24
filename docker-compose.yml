@@ -1,38 +1,26 @@
-version "3"
+version: "3"
 services:
     browser:
         image: registry.cn-hangzhou.aliyuncs.com/xiayu/etcd-browser
-        networks:
-          vpcbr:
-            ipv4_address: 172.16.238.11
         # publish ports can be 443 or 80    
         ports:
-        - "443"
+        #- "443:443"
+        - "80:80"
         environment:
             ETCD_HOST: etcd
             ETCD_PORT: 2379
             # only set this when access via internal port 443
-            ETCD_HTTPS: "TRUE"
+            #ETCD_HTTPS: "TRUE"
 
     etcd:
       image: quay.io/coreos/etcd
-      networks:
-        vpcbr:
-          ipv4_address: 172.16.238.10
       volumes:
       - etcd-data:/etcd-data
       command: >
         /usr/local/bin/etcd --data-dir=/etcd-data --name node1
-        --initial-advertise-peer-urls http://172.16.238.10:2380 --listen-peer-urls http://0.0.0.0:2380
-        --advertise-client-urls http://172.16.238.10:2379 --listen-client-urls http://0.0.0.0:2379
-        --initial-cluster node1=http://172.16.238.10:2380
-
-networks:
-  vpcbr:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: 172.16.238.0/24
+        --initial-advertise-peer-urls http://127.0.0.1:2380 --listen-peer-urls http://127.0.0.1:2380
+        --advertise-client-urls http://127.0.0.1:2379 --listen-client-urls http://0.0.0.0:2379
+        --initial-cluster node1=http://127.0.0.1:2380
 
 volumes:
   etcd-data:
